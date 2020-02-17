@@ -1,5 +1,5 @@
 import React from "react";
-
+import UserBody from "../UserBody/index"
 const styles = {
     h1: {
         textAlign: "center"
@@ -8,7 +8,13 @@ const styles = {
 
 function Main(){
     return(
-        <h1 style={styles.h1}>Employee Directory</h1>
+        <div>
+            <h1 style={styles.h1}>Employee Directory</h1>
+            <UserBody />
+        </div>
+
+
+        
     )
 }
 
