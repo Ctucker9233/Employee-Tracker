@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import getUsers from "../../utils/API"
 import SearchBar from "../SearchBar/index"
 
 class Search extends React.Component {
@@ -60,22 +61,22 @@ class Search extends React.Component {
                 <table>
                     <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Name</th>
-                            <th>Address</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Zip Code</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>DOB</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {this.state.filteredUsers.map(person => (
                             <tr>
+                                <td><img src={person.picture.thumbnail}/></td>
                                 <td>{person.name.first} {person.name.last}</td>
-                                <td>{person.location.street.number} {person.location.street.name}</td>
-                                <td>{person.location.city}</td>
-                                <td>{person.location.state}</td>
-                                <td>{person.location.postcode}</td>
+                                <td>{person.phone}</td>
+                                <td>{person.email}</td>
+                                <td>{person.dob.date.substring(0, person.dob.date.length - 14)}</td>
                             </tr>
                         ))}
                     </tbody>

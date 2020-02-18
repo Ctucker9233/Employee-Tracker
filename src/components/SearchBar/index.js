@@ -1,10 +1,9 @@
 import React from "react"
-
-
+import "./styles.css"
 
 function SearchBar(props) {
     return (
-        <div className="searchbox">
+        <div className="searchbox" >
             <form className="form-inline">
                 <input
                     className="form-control"
