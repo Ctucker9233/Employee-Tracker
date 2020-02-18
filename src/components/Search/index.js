@@ -14,27 +14,29 @@ class Search extends React.Component {
     }
 
     filterList = (event) => {
-        let items = this.state.users;
-        let filterArray =[]
-        let objectArray = Object.entries(items)
-        console.log(objectArray);
-        objectArray.forEach(([key, value]) => {
-            filterArray.push([key, value])
-        })
-        console.log (filterArray)
+        //let items = this.state.users;
+        console.log(event.target.value);
+        const filter = event.target.value;
+        const filteredList = this.state.users.filter(item => {
+            let values = Object.values(item)
+                .join("")
+                .toLowerCase();
+            return values.indexOf(filter.toLowerCase()) !== -1;
+        });
+        this.setState({ filteredUsers: filteredList });
 
-        var person = items.filter((obj) => {
-            var flag = false;
+        // var person = items.filter((obj) => {
+        //     var flag = false;
 
-            Object.values(obj).forEach((val) => {
-                if ((val.toString().toLowerCase()).indexOf(event.target.value.toString().toLowerCase()) > -1) {
-                    flag = true;
-                    return;
-                }
-            });
-            if (flag) return obj;
-        })
-        this.setState({ filteredUsers: person });
+        //     Object.values(obj).forEach((val) => {
+        //         if ((val.toString().toLowerCase()).indexOf(event.target.value.toString().toLowerCase()) > -1) {
+        //             flag = true;
+        //             return;
+        //         }
+        //     });
+        //     if (flag) return obj;
+        // })
+        // this.setState({ filteredUsers: person });
     }
 
 
@@ -52,7 +54,7 @@ class Search extends React.Component {
         }
 
         return (
-            
+
             <div>
                 <SearchBar onChange={this.filterList} />
                 <table>
