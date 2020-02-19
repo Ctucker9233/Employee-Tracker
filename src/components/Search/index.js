@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "axios";
-import getUsers from "../../utils/API"
+import API from "../../utils/API"
 import SearchBar from "../SearchBar/index"
+import "./styles.css"
 
 class Search extends React.Component {
     constructor(props) {
@@ -40,9 +40,23 @@ class Search extends React.Component {
         // this.setState({ filteredUsers: person });
     }
 
+    
+    sortName = (event) => {
+        var byName = this.state.filteredUsers.slice(0);
+        
+        byName.sort(function (a, b, key=(event.target.innerText).toLowerCase()) {
+            var x = a.name[key];
+            var y = b.name[key];
+            console.log(event.target.innerText)
+            console.log(x, y)
+            return x < y ? -1 : x > y ? 1 : 0;
+        });
+
+        this.setState({ filteredUsers: byName })
+    }
 
     componentDidMount() {
-        axios.get("https://randomuser.me/api/?nat=us&results=200")
+        API.getUsers()
             .then(newData => this.setState({ loading: false, users: newData.data.results, filteredUsers: newData.data.results }))
             .catch(function (error) {
                 console.log(error);
@@ -58,29 +72,33 @@ class Search extends React.Component {
 
             <div>
                 <SearchBar onChange={this.filterList} />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>DOB</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {this.state.filteredUsers.map(person => (
+                <div className="personList">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><img src={person.picture.thumbnail}/></td>
-                                <td>{person.name.first} {person.name.last}</td>
-                                <td>{person.phone}</td>
-                                <td>{person.email}</td>
-                                <td>{person.dob.date.substring(0, person.dob.date.length - 14)}</td>
+                                <th>Image</th>
+                                <th onClick={this.sortName}>First</th>
+                                <th onClick={this.sortName}>Last</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>DOB</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {this.state.filteredUsers.map(person => (
+                                <tr>
+                                    <td><img src={person.picture.thumbnail} /></td>
+                                    <td>{person.name.first}</td>
+                                    <td>{person.name.last}</td>
+                                    <td>{person.phone.toString()}</td>
+                                    <td>{person.email}</td>
+                                    <td>{person.dob.date.substring(0, person.dob.date.length - 14).toString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         )
     }
