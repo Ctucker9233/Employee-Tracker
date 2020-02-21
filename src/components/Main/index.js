@@ -4,8 +4,12 @@ import UserBody from "../UserBody/index"
 
 function Main() {
     return (
-        <div>
-            <UserBody />
+        <div className="container">
+            <div className ="row">
+                <div className="col-md-12">
+                    <UserBody />
+                </div>
+            </div>
         </div>
     )
 }
