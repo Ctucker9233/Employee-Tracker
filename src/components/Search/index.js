@@ -87,7 +87,7 @@ class Search extends React.Component {
                         <tbody>
                             {this.state.filteredUsers.map(person => (
                                 <tr>
-                                    <td><img src={person.picture.thumbnail} /></td>
+                                    <td><img src={person.picture.thumbnail} alt={person.name.first}/></td>
                                     <td>{person.name.first}</td>
                                     <td>{person.name.last}</td>
                                     <td>{person.phone.toString()}</td>
